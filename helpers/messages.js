@@ -1,7 +1,7 @@
 import colors from 'colors'
 import readline from 'readline'
 
-export const menu = () => {
+const menu = () => {
     console.clear()
     console.log('==============================='.blue);
     console.log('     Seleccione una opción'.blue);
@@ -14,14 +14,28 @@ export const menu = () => {
     console.log(`${'0'.blue}. Salir\n`);
 }
 
+export const showMenu = () => {
+    menu()
+    return promptUser(`\nSeleccione una opción para continuar\n`)
+}
+
 export const pause = () => {
-    const rdl = readline.createInterface({
+    return promptUser(`\nPresione ${'ENTER'.blue} para continuar\n`)
+}
+
+const createReadlineInterface = () => {
+    return readline.createInterface({
         input: process.stdin,
         output: process.stdout
     })
+}
 
-    rdl.question(`\nPresione ${'ENTER'.blue} para continuar\n`, option => {
-        rdl.close()
-        // resolve(option)
+const promptUser = (question) => {
+    return new Promise(resolve => {
+        const rdl = createReadlineInterface()
+        rdl.question(question, option => {
+            rdl.close()
+            resolve(option)
+        })
     })
 }
