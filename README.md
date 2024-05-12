@@ -17,4 +17,5 @@ Recordar que al descargar el código se debe ejecutar el comando ```npm install`
 Se consumirá la API suministrada por la página web https://sampleapis.com/api-list/rickandmorty para combinarla con el desarrollo del CLI
 
 # Importante
-Para este proyecto se usará datos suministrados por la página https://sampleapis.com/api-list/rickandmorty.
+1. Para este proyecto se usará datos suministrados por la página https://sampleapis.com/api-list/rickandmorty
+2. Para este proyecto se usan buenas prácticas y la implementación del patrón Builder para el modelo de Character

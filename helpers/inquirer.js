@@ -25,7 +25,7 @@ const menuOptions = [
             },
             {
                 value: '5',
-                name: `${'5.'.blue} Eliminar un personake`
+                name: `${'5.'.blue} Eliminar un personaje`
             },
             {
                 value: '0',
@@ -45,6 +45,7 @@ export const inquirerMenu = async() => {
 
     return option
 }
+
 export const pause = async() => {
     const question = [
         {
@@ -56,4 +57,35 @@ export const pause = async() => {
 
     console.log('\n');
     await inquirer.prompt(question)
+}
+
+export const readInformation = async() => {
+    const id = await readInput('id', 'Id')
+    const name = await readInput('name', 'Name')
+    const status = await readInput('status', 'Status')
+    const species = await readInput('species', 'Species')
+    const type = await readInput('type', 'Type')
+    const gender = await readInput('gender', 'Gender')
+    const origin = await readInput('origin', 'Origin')
+    const image = await readInput('image', 'Image')
+
+    return { id, name, status, species, type, gender, origin, image }
+}
+
+const readInput = async(name, message) => {
+    const question = [
+        {
+            type: 'input',
+            name: `${name}`,
+            message,
+            validate(value) {
+                if(value.length === 0) return `Por favor ingrese un valor para el ${name}`
+                return true
+            }
+        }
+    ]
+
+    let info = await inquirer.prompt(question)
+    info = Object.values(info)
+    return info[0]
 }
