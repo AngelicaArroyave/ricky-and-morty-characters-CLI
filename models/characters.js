@@ -1,10 +1,10 @@
 import { Character } from "./character.js";
 
 export class Characters {
-    _list = {}
+    _listCharacters = {}
 
     constructor() {
-        this._list = {}
+        this._listCharacters = {}
     }
 
     createCharacter({ id, name, status, species, type, gender, origin, image }) {
@@ -17,6 +17,13 @@ export class Characters {
                             .setGender(gender)
                             .setOrigin(origin)
                             .setImage(image)
-        this._list[character.id] = character
+        this._listCharacters[character.id] = character
+    }
+
+    get convertToArray() {
+        const list = []
+        Object.keys(this._listCharacters).forEach(key => list.push(this._listCharacters[key]))
+
+        return list
     }
 }
