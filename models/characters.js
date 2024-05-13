@@ -40,4 +40,8 @@ export class Characters {
             console.log(`${index} ${name}, ${status}, ${type}, ${gender}, born on ${origin}`);
         })
     }
+
+    deleteCharacter(id = '') {
+        if(this._listCharacters[id]) delete this._listCharacters[id]
+    }
 }

@@ -83,8 +83,54 @@ const readInput = async(name, message) => {
             }
         }
     ]
-
     let info = await inquirer.prompt(question)
     info = Object.values(info)
+    
     return info[0]
+}
+
+export const listCharactersToBeDeleted = async(characters = []) => {
+    const choices = choicesCharactersToBeDeleted(characters)
+    const optionsDelete = [
+        {
+            type: 'list',
+            name: 'id',
+            message: 'Borrar',
+            choices
+        }
+    ]
+    const { id } = await inquirer.prompt(optionsDelete)
+
+    return id
+}
+
+const choicesCharactersToBeDeleted = (characters) => {
+    const choices = characters.map((character, index) => {
+        const idx = `${index + 1}.`.blue
+
+        return {
+            value: character.id,
+            name: `${idx} ${character.name}`
+        }
+    })
+    
+    choices.unshift({
+        value: 0,
+        name: `${'0.'.blue} Cancelar`
+    })
+
+    return choices
+}
+
+export const confirmAction = async(message) => {
+    const question = [
+        {
+            type: 'confirm',
+            name: 'ok',
+            message
+        }
+    ]
+    const { ok } = await inquirer.prompt(question)
+
+    return ok
 }

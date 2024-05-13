@@ -1,5 +1,5 @@
 import { Characters } from './models/characters.js'
-import { inquirerMenu, pause, readInformation } from './helpers/inquirer.js'
+import { confirmAction, inquirerMenu, listCharactersToBeDeleted, pause, readInformation } from './helpers/inquirer.js'
 import { saveDB, readDB } from './helpers/fileManagement.js'
 import colors from 'colors'
 
@@ -35,8 +35,21 @@ const selectAChoice = async(option) => {
             // Buscar información de personaje
             break;
         case '5':
-            // Eliminar a un personaje
+            await choiceDelete()
             break;
+    }
+}
+
+const choiceDelete = async() => {
+    const id = await listCharactersToBeDeleted(characters.convertToArray)
+
+    if(id !== 0) {
+        const response = await confirmAction('¿Está seguro/a?')
+        
+        if(response) {
+            characters.deleteCharacter(id)
+            console.log('Personaje borrado exitosamente'.green)
+        }
     }
 }
 
