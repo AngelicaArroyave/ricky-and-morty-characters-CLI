@@ -27,4 +27,17 @@ export class Characters {
 
         return list
     }
+
+    loadCharactersFromArray(characters = []) {
+        characters.forEach(character => this._listCharacters[character.id] = character)
+    }
+
+    showCharacters() {
+        console.log('\n');
+        this.convertToArray.forEach((character, idx) => {
+            const index = `${idx + 1}.`.blue
+            const { name, status, type, gender, origin } = character
+            console.log(`${index} ${name}, ${status}, ${type}, ${gender}, born on ${origin}`);
+        })
+    }
 }

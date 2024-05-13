@@ -1,12 +1,15 @@
 import { Characters } from './models/characters.js'
 import { inquirerMenu, pause, readInformation } from './helpers/inquirer.js'
-import { saveDB } from './helpers/fileManagement.js'
+import { saveDB, readDB } from './helpers/fileManagement.js'
 import colors from 'colors'
 
 const characters = new Characters()
 
 const main = async() => {
     let option = ''
+    const charactersDB = readDB()
+
+    if(charactersDB) characters.loadCharactersFromArray(charactersDB)
 
     do {
         option = await inquirerMenu()
