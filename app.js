@@ -19,15 +19,14 @@ const main = async() => {
 const selectAChoice = async(option) => {
     switch (option) {
         case '1':
-            const { id, name, status, species, type, gender, origin, image } = await readInformation()
-            characters.createCharacter({ id, name, status, species, type, gender, origin, image })
+            const { name, status, species, type, gender, origin, image } = await readInformation()
+            characters.createCharacter({ name, status, species, type, gender, origin, image })
             break;
         case '2':
             // Actualizar personaje
             break;
         case '3':
-            // Listar personajes
-            console.log(characters._listCharacters);
+            characters.showCharacters()
             break;
         case '4':
             // Buscar información de personaje

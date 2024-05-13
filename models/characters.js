@@ -7,9 +7,10 @@ export class Characters {
         this._listCharacters = {}
     }
 
-    createCharacter({ id, name, status, species, type, gender, origin, image }) {
+    createCharacter({ name, status, species, type, gender, origin, image }) {
+        const id = this.convertToArray.length + 1
         const character = new Character()
-                            .setId(Number(id))
+                            .setId(id)
                             .setName(name)
                             .setStatus(status)
                             .setSpecies(species)

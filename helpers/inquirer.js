@@ -60,7 +60,6 @@ export const pause = async() => {
 }
 
 export const readInformation = async() => {
-    const id = await readInput('id', 'Id')
     const name = await readInput('name', 'Name')
     const status = await readInput('status', 'Status')
     const species = await readInput('species', 'Species')
@@ -69,7 +68,7 @@ export const readInformation = async() => {
     const origin = await readInput('origin', 'Origin')
     const image = await readInput('image', 'Image')
 
-    return { id, name, status, species, type, gender, origin, image }
+    return { name, status, species, type, gender, origin, image }
 }
 
 const readInput = async(name, message) => {
