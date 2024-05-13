@@ -44,4 +44,21 @@ export class Characters {
     deleteCharacter(id = '') {
         if(this._listCharacters[id]) delete this._listCharacters[id]
     }
+
+    findByIdCharacter(id = '') {
+        if(this._listCharacters[id]) return this._listCharacters[id]
+    }
+
+    updateCharacter({ id, name, status, species, type, gender, origin, image }) {
+        const character = new Character()
+                            .setId(id)
+                            .setName(name)
+                            .setStatus(status)
+                            .setSpecies(species)
+                            .setType(type)
+                            .setGender(gender)
+                            .setOrigin(origin)
+                            .setImage(image)
+        this._listCharacters[id] = character
+    }
 }
