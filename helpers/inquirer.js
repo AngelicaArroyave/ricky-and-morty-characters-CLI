@@ -35,13 +35,48 @@ const menuOptions = [
     }
 ]
 
-export const inquirerMenu = async() => {
+const searchMenuOptions = [
+    {
+        type: 'list',
+        name: 'option',
+        message: '¿Qué desea buscar en la lista de personajes?',
+        choices: [
+            {
+                value: '1',
+                name: `${'1.'.blue} Por estado (status)`
+            },
+            {
+                value: '2',
+                name: `${'2.'.blue} Por tipo de especie (species)`
+            },
+            {
+                value: '3',
+                name: `${'3.'.blue} Por tipo (type)`
+            },
+            {
+                value: '4',
+                name: `${'4.'.blue} Por género (gender)`
+            },
+            {
+                value: '5',
+                name: `${'5.'.blue} Por origen (Origin)`
+            },
+            {
+                value: '0',
+                name: `${'0.'.blue} Salir`
+            }
+        ]
+    }
+]
+
+export const inquirerMenu = async(typeOptions = 'general') => {
     console.clear()
     console.log('==============================='.blue);
     console.log('     Seleccione una opción'.blue);
     console.log('===============================\n'.blue);
 
-    const { option } = await inquirer.prompt(menuOptions)
+    const choiceOptions = typeOptions !== 'general' ? searchMenuOptions : menuOptions
+    const { option } = await inquirer.prompt(choiceOptions)
 
     return option
 }
@@ -71,7 +106,7 @@ export const readInformation = async() => {
     return { name, status, species, type, gender, origin, image }
 }
 
-const readInput = async(name, message) => {
+export const readInput = async(name, message) => {
     const question = [
         {
             type: 'input',

@@ -45,10 +45,6 @@ export class Characters {
         if(this._listCharacters[id]) delete this._listCharacters[id]
     }
 
-    findByIdCharacter(id = '') {
-        if(this._listCharacters[id]) return this._listCharacters[id]
-    }
-
     updateCharacter({ id, name, status, species, type, gender, origin, image }) {
         const character = new Character()
                             .setId(id)
@@ -60,5 +56,14 @@ export class Characters {
                             .setOrigin(origin)
                             .setImage(image)
         this._listCharacters[id] = character
+    }
+
+    findByIdCharacter(id = '') {
+        if(this._listCharacters[id]) return this._listCharacters[id]
+    }
+
+    findCharactersInformation(attribute, value, type = 'general') {
+        const characters = this.convertToArray.filter(character => type !== 'general' ? character[attribute].includes(value) : character[attribute] === value)
+        console.log('\n', characters)
     }
 }
