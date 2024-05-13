@@ -24,19 +24,19 @@ const selectAChoice = async(option) => {
         case '1':
             const { name, status, species, type, gender, origin, image } = await readInformation()
             characters.createCharacter({ name, status, species, type, gender, origin, image })
-            break;
+            break
         case '2':
             await choiceUpdate()
-            break;
+            break
         case '3':
             characters.showCharacters()
-            break;
+            break
         case '4':
             await selectAChoiceSearch()
-            break;
+            break
         case '5':
             await choiceDelete()
-            break;
+            break
     }
 }
 
@@ -47,23 +47,23 @@ const selectAChoiceSearch = async() => {
         case '1':
             const status = await readCharacterInformation('el estado', 'Alive, Dead o unknown', 'Status')
             characters.findCharactersInformation('status', status)
-            break;
+            break
         case '2':
             const species = await readCharacterInformation('la especie', 'Human o Alien', 'Species')
             characters.findCharactersInformation('species', species)
-            break;
+            break
         case '3':
             const type = await readCharacterInformation('el tipo', 'Human, Alien, Genetic experiment o Parasite', 'Type')
             characters.findCharactersInformation('type', type, 'include')
-            break;
+            break
         case '4':
             const gender = await readCharacterInformation('el género', 'Female, Male o unknown', 'Gender')
             characters.findCharactersInformation('gender', gender)
-            break;
+            break
         case '5':
             const origin = await readCharacterInformation('el origen', 'Earth, Abadango o unknown', 'Origin')
             characters.findCharactersInformation('origin', origin, 'include')
-            break;
+            break
     }
 }
 

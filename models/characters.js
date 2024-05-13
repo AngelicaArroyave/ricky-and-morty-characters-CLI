@@ -1,4 +1,4 @@
-import { Character } from "./character.js";
+import { Character } from "./character.js"
 
 export class Characters {
     _listCharacters = {}
@@ -33,11 +33,11 @@ export class Characters {
     }
 
     showCharacters() {
-        console.log('\n');
+        console.log('\n')
         this.convertToArray.forEach((character, idx) => {
             const index = `${idx + 1}.`.blue
             const { name, status, type, gender, origin } = character
-            console.log(`${index} ${name}, ${status}, ${type}, ${gender}, born on ${origin}`);
+            console.log(`${index} ${name}, ${status}, ${type}, ${gender}, born on ${origin}`)
         })
     }
 

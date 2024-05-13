@@ -3,15 +3,15 @@ import readline from 'readline'
 
 const menu = () => {
     console.clear()
-    console.log('==============================='.blue);
-    console.log('     Seleccione una opción'.blue);
-    console.log('===============================\n'.blue);
-    console.log(`${'1'.blue}. Crear personaje`);
-    console.log(`${'2'.blue}. Actualizar un personaje`);
-    console.log(`${'3'.blue}. Listar todos los personajes`);
-    console.log(`${'4'.blue}. Buscar información de personajes`);
-    console.log(`${'5'.blue}. Eliminar un personake`);
-    console.log(`${'0'.blue}. Salir\n`);
+    console.log('==============================='.blue)
+    console.log('     Seleccione una opción'.blue)
+    console.log('===============================\n'.blue)
+    console.log(`${'1'.blue}. Crear personaje`)
+    console.log(`${'2'.blue}. Actualizar un personaje`)
+    console.log(`${'3'.blue}. Listar todos los personajes`)
+    console.log(`${'4'.blue}. Buscar información de personajes`)
+    console.log(`${'5'.blue}. Eliminar un personake`)
+    console.log(`${'0'.blue}. Salir\n`)
 }
 
 export const showMenu = () => {

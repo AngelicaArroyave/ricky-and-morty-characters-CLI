@@ -39,7 +39,7 @@ const searchMenuOptions = [
     {
         type: 'list',
         name: 'option',
-        message: '¿Qué desea buscar en la lista de personajes?',
+        message: `¿Qué desea buscar en la lista de personajes?\n ${'IMPORTANTE: Recuerde ingresar tal cual los filtros como se indica en los ejemplos'.yellow}`,
         choices: [
             {
                 value: '1',
@@ -71,9 +71,9 @@ const searchMenuOptions = [
 
 export const inquirerMenu = async(typeOptions = 'general') => {
     console.clear()
-    console.log('==============================='.blue);
-    console.log('     Seleccione una opción'.blue);
-    console.log('===============================\n'.blue);
+    console.log('==============================='.blue)
+    console.log('     Seleccione una opción'.blue)
+    console.log('===============================\n'.blue)
 
     const choiceOptions = typeOptions !== 'general' ? searchMenuOptions : menuOptions
     const { option } = await inquirer.prompt(choiceOptions)
@@ -90,7 +90,7 @@ export const pause = async() => {
         }
     ]
 
-    console.log('\n');
+    console.log('\n')
     await inquirer.prompt(question)
 }
 
