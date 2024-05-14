@@ -13,9 +13,6 @@ Para ejecutar o correr el proyecto en consola, se debe usar el comando ```node a
 ### **Nota:**
 Recordar que al descargar el código se debe ejecutar el comando ```npm install``` para la construcción de los diferentes módulos
 
-## ¿Qué se hará más adelante?
-Se consumirá la API suministrada por la página web https://sampleapis.com/api-list/rickandmorty para combinarla con el desarrollo del CLI
-
 # Importante
 1. Para este proyecto se usará datos suministrados por la página https://sampleapis.com/api-list/rickandmorty
 2. Para este proyecto se usan buenas prácticas y la implementación del patrón Builder para el modelo de Character
