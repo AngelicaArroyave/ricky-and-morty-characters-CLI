@@ -46,23 +46,23 @@ const selectAChoiceSearch = async() => {
     switch (option) {
         case '1':
             const status = await readCharacterInformation('el estado', 'Alive, Dead o unknown', 'Status')
-            characters.findCharactersInformation('status', status)
+            await characters.findCharactersInformation('status', status)
             break
         case '2':
             const species = await readCharacterInformation('la especie', 'Human o Alien', 'Species')
-            characters.findCharactersInformation('species', species)
+            await characters.findCharactersInformation('species', species)
             break
         case '3':
             const type = await readCharacterInformation('el tipo', 'Human, Alien, Genetic experiment o Parasite', 'Type')
-            characters.findCharactersInformation('type', type, 'include')
+            await characters.findCharactersInformation('type', type, 'include')
             break
         case '4':
             const gender = await readCharacterInformation('el género', 'Female, Male o unknown', 'Gender')
-            characters.findCharactersInformation('gender', gender)
+            await characters.findCharactersInformation('gender', gender)
             break
         case '5':
-            const origin = await readCharacterInformation('el origen', 'Earth, Abadango o unknown', 'Origin')
-            characters.findCharactersInformation('origin', origin, 'include')
+            const origin = await readCharacterInformation('el origen', 'Earth (C-137), Abadango o unknown', 'Origin')
+            await characters.findCharactersInformation('origin', origin, 'include')
             break
     }
 }

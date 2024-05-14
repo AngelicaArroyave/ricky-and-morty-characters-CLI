@@ -2,7 +2,7 @@ import { Character } from "./character.js"
 
 export class Characters {
     _listCharacters = {}
-    _URL = 'https://api.sampleapis.com/rickandmorty'
+    _URL = 'https://api.sampleapis.com/rickandmorty/characters'
 
     constructor() {
         this._listCharacters = {}
@@ -34,7 +34,7 @@ export class Characters {
     }
 
     async showCharacters() {
-        await fetch(`${this._URL}/characters`)
+        await fetch(`${this._URL}`)
             .then(response => response.json())
             .then(json => {
                 console.log('\n')
@@ -68,8 +68,13 @@ export class Characters {
         if(this._listCharacters[id]) return this._listCharacters[id]
     }
 
-    findCharactersInformation(attribute, value, type = 'general') {
-        const characters = this.convertToArray.filter(character => type !== 'general' ? character[attribute].includes(value) : character[attribute] === value)
-        console.log('\n', characters)
+    async findCharactersInformation(attribute, value) {
+        await fetch(`${this._URL}/?${attribute}=${value}`)
+            .then(response => response.json())
+            .then(json => {
+                const characters = json.filter(character => character[attribute] === value)
+                console.log('\n', characters)
+            })
+            .catch(error => console.log('Solicitud fallida'.red, error))
     }
 }
