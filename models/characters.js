@@ -2,6 +2,7 @@ import { Character } from "./character.js"
 
 export class Characters {
     _listCharacters = {}
+    _URL = 'https://api.sampleapis.com/rickandmorty'
 
     constructor() {
         this._listCharacters = {}
@@ -32,13 +33,18 @@ export class Characters {
         characters.forEach(character => this._listCharacters[character.id] = character)
     }
 
-    showCharacters() {
-        console.log('\n')
-        this.convertToArray.forEach((character, idx) => {
-            const index = `${idx + 1}.`.blue
-            const { name, status, type, gender, origin } = character
-            console.log(`${index} ${name}, ${status}, ${type}, ${gender}, born on ${origin}`)
-        })
+    async showCharacters() {
+        await fetch(`${this._URL}/characters`)
+            .then(response => response.json())
+            .then(json => {
+                console.log('\n')
+                json.forEach((character, idx) => {
+                const index = `${idx + 1}.`.blue
+                const { name, status, type, gender, origin } = character
+                console.log(`${index} ${name}, ${status}, ${type}, ${gender}, born on ${origin}`)
+            })
+            })
+            .catch(error => console.log('Solicitud fallida'.red, error))
     }
 
     deleteCharacter(id = '') {

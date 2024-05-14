@@ -29,7 +29,7 @@ const selectAChoice = async(option) => {
             await choiceUpdate()
             break
         case '3':
-            characters.showCharacters()
+            await characters.showCharacters()
             break
         case '4':
             await selectAChoiceSearch()
