@@ -1,5 +1,3 @@
-import { Character } from "./character.js"
-
 export class Characters {
     _listCharacters = {}
     _URL = 'https://api.sampleapis.com/rickandmorty/characters'
@@ -32,10 +30,6 @@ export class Characters {
         return list
     }
 
-    loadCharactersFromArray(characters = []) {
-        characters.forEach(character => this._listCharacters[character.id] = character)
-    }
-
     async showCharacters() {
         await fetch(`${this._URL}`)
             .then(response => response.json())
@@ -50,8 +44,13 @@ export class Characters {
             .catch(error => console.log('Solicitud fallida'.red, error))
     }
 
-    deleteCharacter(id = '') {
-        if(this._listCharacters[id]) delete this._listCharacters[id]
+    async deleteCharacter(id) {
+        await fetch(`${this._URL}/${id}`, {
+            method: "DELETE",
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+            })
+            .then(response => response.json())
+            .catch(error => console.log(error))
     }
 
     async updateCharacter({ id, name, status, species, type, gender, origin, image }) {

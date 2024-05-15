@@ -7,9 +7,6 @@ const characters = new Characters()
 
 const main = async() => {
     let option = ''
-    const charactersDB = readDB()
-
-    if(charactersDB) characters.loadCharactersFromArray(charactersDB)
 
     do {
         option = await inquirerMenu()
@@ -79,7 +76,7 @@ const choiceDelete = async() => {
         const response = await confirmAction('¿Está seguro/a?')
         
         if(response) {
-            characters.deleteCharacter(id)
+            await characters.deleteCharacter(id)
             console.log('Personaje borrado exitosamente'.green)
         }
     }
