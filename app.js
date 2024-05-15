@@ -14,7 +14,7 @@ const main = async() => {
     do {
         option = await inquirerMenu()
         await selectAChoice(option)
-        saveDB(characters.convertToArray)
+        saveDB(await characters.convertToArray())
         await pause()
     } while(option != 0)
 }
@@ -73,7 +73,7 @@ const readCharacterInformation = async(message, example, filter) => {
 }
 
 const choiceDelete = async() => {
-    const id = await listCharactersToBeDeleted(characters.convertToArray)
+    const id = await listCharactersToBeDeleted(await characters.convertToArray())
 
     if(id !== 0) {
         const response = await confirmAction('¿Está seguro/a?')
@@ -86,16 +86,16 @@ const choiceDelete = async() => {
 }
 
 const choiceUpdate = async() => {
-    const id = await listCharactersToBeUpdated(characters.convertToArray)
+    const id = await listCharactersToBeUpdated(await characters.convertToArray())
 
     if(id !== 0) {
-        const characterInformation = characters.findByIdCharacter(id)
-        console.log('\nInformacion que se tiene actualmente del personaje:\n'.blue, characterInformation)
+        await characters.findByIdCharacter(id)
+        console.log('\nInformacion que se tiene actualmente del personaje:\n'.blue)
         const { name, status, species, type, gender, origin, image } = await readInformation()
         const response = await confirmAction('¿Está seguro/a?')
 
         if(response) {
-            characters.updateCharacter({ id, name, status, species, type, gender, origin, image })
+            await characters.updateCharacter({ id, name, status, species, type, gender, origin, image })
             console.log('Actualizada la información del personaje exitosamente'.green)
         }
     }

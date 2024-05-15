@@ -19,9 +19,15 @@ export class Characters {
             .catch(error => console.log(error))
     }
 
-    get convertToArray() {
+    async convertToArray() {
         const list = []
-        Object.keys(this._listCharacters).forEach(key => list.push(this._listCharacters[key]))
+
+        await fetch(`${this._URL}`)
+            .then(response => response.json())
+            .then(json => {
+                Object.keys(json).forEach(key => list.push(json[key]))
+            })
+            .catch(error => console.log('Solicitud fallida'.red, error))
 
         return list
     }
@@ -48,21 +54,22 @@ export class Characters {
         if(this._listCharacters[id]) delete this._listCharacters[id]
     }
 
-    updateCharacter({ id, name, status, species, type, gender, origin, image }) {
-        const character = new Character()
-                            .setId(id)
-                            .setName(name)
-                            .setStatus(status)
-                            .setSpecies(species)
-                            .setType(type)
-                            .setGender(gender)
-                            .setOrigin(origin)
-                            .setImage(image)
-        this._listCharacters[id] = character
+    async updateCharacter({ id, name, status, species, type, gender, origin, image }) {
+        await fetch(`${this._URL}/${id}`, {
+            method: "PUT",
+            body: JSON.stringify({ name, status, species, type, gender, origin, image }),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+            })
+            .then(response => response.json()) 
+            .then(json => console.log(json))
+            .catch(error => console.log(error))
     }
 
-    findByIdCharacter(id = '') {
-        if(this._listCharacters[id]) return this._listCharacters[id]
+    async findByIdCharacter(id) {
+        await fetch(`${this._URL}/${id}`)
+            .then(response => response.json())
+            .then(json => console.log('\n', json))
+            .catch(error => console.log('Solicitud fallida'.red, error))
     }
 
     async findCharactersInformation(attribute, value) {
