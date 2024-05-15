@@ -1,69 +1,63 @@
-import { Character } from "./character.js"
+const URL = 'https://api.sampleapis.com/rickandmorty/characters'
 
-export class Characters {
-    _listCharacters = {}
+async function fetchData(url, method, body = '') {
+    try {
+        const options = {
+            method,
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+        }
 
-    constructor() {
-        this._listCharacters = {}
+        if(body !== '') options.body = JSON.stringify(body)
+        
+        const response = await fetch(url, options)
+    
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+
+        const data = await response.json()
+        
+        return data
+    } catch (error) {
+        throw new Error('Error fetching data: ', error)
     }
+}
 
-    createCharacter({ name, status, species, type, gender, origin, image }) {
-        const id = this.convertToArray.length + 1
-        const character = new Character()
-                            .setId(id)
-                            .setName(name)
-                            .setStatus(status)
-                            .setSpecies(species)
-                            .setType(type)
-                            .setGender(gender)
-                            .setOrigin(origin)
-                            .setImage(image)
-        this._listCharacters[character.id] = character
-    }
+export const createCharacter = async({ name, status, species, type, gender, origin, image }) => {
+    const response = await fetchData(URL, 'POST', { name, status, species, type, gender, origin, image })
+    console.log(response)
+}
 
-    get convertToArray() {
-        const list = []
-        Object.keys(this._listCharacters).forEach(key => list.push(this._listCharacters[key]))
+export const convertToArray = async() => {
+    const list = []
+    const response = await fetchData(URL, 'GET')
+    Object.keys(response).forEach(key => list.push(response[key]))
 
-        return list
-    }
+    return list
+}
 
-    loadCharactersFromArray(characters = []) {
-        characters.forEach(character => this._listCharacters[character.id] = character)
-    }
+export const showCharacters = async() => {
+    const response = await fetchData(URL, 'GET')
+    console.log('\n')
+    response.forEach((character, idx) => {
+        const index = `${idx + 1}.`.blue
+        const { name, status, type, gender, origin } = character
+        console.log(`${index} ${name}, ${status}, ${type}, ${gender}, born on ${origin}`)
+    })
+}
 
-    showCharacters() {
-        console.log('\n')
-        this.convertToArray.forEach((character, idx) => {
-            const index = `${idx + 1}.`.blue
-            const { name, status, type, gender, origin } = character
-            console.log(`${index} ${name}, ${status}, ${type}, ${gender}, born on ${origin}`)
-        })
-    }
+export const deleteCharacter = async(id) => await fetchData(`${URL}/${id}`, 'DELETE')
 
-    deleteCharacter(id = '') {
-        if(this._listCharacters[id]) delete this._listCharacters[id]
-    }
+export const updateCharacter = async({ id, name, status, species, type, gender, origin, image }) => {
+    const response = await fetchData(`${URL}/${id}`, 'PUT', { name, status, species, type, gender, origin, image })
+    console.log(response)
+}
 
-    updateCharacter({ id, name, status, species, type, gender, origin, image }) {
-        const character = new Character()
-                            .setId(id)
-                            .setName(name)
-                            .setStatus(status)
-                            .setSpecies(species)
-                            .setType(type)
-                            .setGender(gender)
-                            .setOrigin(origin)
-                            .setImage(image)
-        this._listCharacters[id] = character
-    }
+export const findByIdCharacter = async(id) => {
+    const response = await fetchData(`${URL}/${id}`, 'GET')
+    console.log('\n', response)
+}
 
-    findByIdCharacter(id = '') {
-        if(this._listCharacters[id]) return this._listCharacters[id]
-    }
-
-    findCharactersInformation(attribute, value, type = 'general') {
-        const characters = this.convertToArray.filter(character => type !== 'general' ? character[attribute].includes(value) : character[attribute] === value)
-        console.log('\n', characters)
-    }
+export const findCharactersInformation = async(attribute, value) => {
+    const response = await fetchData(`${URL}/?${attribute}=${value}`, 'GET')
+    const characters = response.filter(character => character[attribute] === value)
+    console.log('\n', characters)
 }
