@@ -23,7 +23,7 @@ const selectAChoice = async(option) => {
     switch (option) {
         case '1':
             const { name, status, species, type, gender, origin, image } = await readInformation()
-            characters.createCharacter({ name, status, species, type, gender, origin, image })
+            await characters.createCharacter({ name, status, species, type, gender, origin, image })
             break
         case '2':
             await choiceUpdate()

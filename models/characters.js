@@ -8,18 +8,15 @@ export class Characters {
         this._listCharacters = {}
     }
 
-    createCharacter({ name, status, species, type, gender, origin, image }) {
-        const id = this.convertToArray.length + 1
-        const character = new Character()
-                            .setId(id)
-                            .setName(name)
-                            .setStatus(status)
-                            .setSpecies(species)
-                            .setType(type)
-                            .setGender(gender)
-                            .setOrigin(origin)
-                            .setImage(image)
-        this._listCharacters[character.id] = character
+    async createCharacter({ name, status, species, type, gender, origin, image }) {
+        await fetch(`${this._URL}`, {
+            method: "POST",
+            body: JSON.stringify({ name, status, species, type, gender, origin, image }),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+            })
+            .then(response => response.json()) 
+            .then(json => console.log(json))
+            .catch(error => console.log(error))
     }
 
     get convertToArray() {
